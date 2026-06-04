@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muhammad Firman Hakim - Online Portfolio</title>
+    <style>
+        /* UTP Color Palette & General Layout */
+        :root {
+            --utp-blue: #00467f;
+            --utp-gold: #b58d3d;
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-main: #333333;
+            --text-light: #555555;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        /* Header styling with Profile Photo */
+        header {
+            background-color: var(--utp-blue);
+            color: #ffffff;
+            padding: 3rem 1rem;
+            text-align: center;
+            border-bottom: 4px solid var(--utp-gold);
+            position: relative;
+        }
+        
+        .header-content {
+            max-width: 950px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .header-text {
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.2rem;
+            letter-spacing: 1px;
+        }
+        header p {
+            margin: 0.5rem 0 0;
+            font-size: 1.1rem;
+            color: #e0e0e0;
+        }
+        header a {
+            color: var(--utp-gold);
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        header a:hover {
+            color: #ffffff;
+        }
+
+        /* Passport Photo Styling */
+        .profile-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 4px solid var(--utp-gold);
+            object-fit: cover;
+            background-color: #eaeaea;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        /* Navigation menu */
+        nav {
+            background: #ffffff;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        nav a {
+            color: var(--utp-blue);
+            display: inline-block;
+            padding: 1rem 1.2rem;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+        nav a:hover {
+            background: var(--utp-blue);
+            color: #ffffff;
+        }
+
+        /* Main content container */
+        .container {
+            max-width: 950px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        /* Interactive Sections (Cards) */
+        .section {
+            background: var(--card-bg);
+            margin-bottom: 2rem;
+            padding: 2.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border-top: 4px solid transparent;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-top 0.3s ease;
+        }
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+            border-top: 4px solid var(--utp-gold);
+        }
+
+        h2 {
+            color: var(--utp-blue);
+            border-bottom: 2px solid var(--utp-gold);
+            padding-bottom: 0.5rem;
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Timeline Layout for Experience, Leadership, Volunteer & Education */
+        .timeline {
+            border-left: 2px solid var(--utp-blue);
+            padding-left: 1.5rem;
+            margin-left: 1rem;
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2.5rem;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2rem;
+            top: 0.3rem;
+            width: 12px;
+            height: 12px;
+            background-color: var(--utp-gold);
+            border-radius: 50%;
+            border: 3px solid #ffffff;
+            transition: all 0.3s ease;
+        }
+        .timeline-item:hover::before {
+            background-color: var(--utp-blue);
+            transform: scale(1.3);
+        }
+        .timeline-date {
+            color: var(--utp-gold);
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-bottom: 0.2rem;
+        }
+        .timeline-item h3 {
+            margin: 0;
+            color: var(--utp-blue);
+            font-size: 1.2rem;
+        }
+        .subtitle {
+            font-style: italic;
+            color: var(--text-light);
+            margin: 0.2rem 0 0.8rem 0;
+            font-weight: 600;
+        }
+        ul {
+            margin-top: 0.5rem;
+            padding-left: 1.2rem;
+        }
+        ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Horizontal Image Slider (Swipeable) */
+        .certificate-slider {
+            display: flex;
+            overflow-x: auto;
+            gap: 1rem;
+            padding-bottom: 1rem;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            margin-top: 1rem;
+        }
+        .certificate-slider::-webkit-scrollbar {
+            display: none;
+        }
+        .cert-slide {
+            flex: 0 0 85%;
+            max-width: 350px;
+            scroll-snap-align: center;
+            background: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 0.5rem;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .cert-slide img {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+            display: block;
+            background-color: #eaeaea; 
+        }
+        /* Only used in education section now */
+        .cert-label {
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: var(--utp-blue);
+            margin-top: 0.5rem;
+        }
+
+        /* Modern Project Card Layout */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        .project-card {
+            background: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--utp-gold);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.08);
+        }
+        .project-img-placeholder {
+            background-color: #f0f4f8;
+            height: 140px;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            font-style: italic;
+            border: 1px dashed #cbd5e1;
+            overflow: hidden;
+        }
+        .project-card h3 {
+            margin: 0 0 0.3rem 0;
+            font-size: 1.15rem;
+            color: var(--utp-blue);
+        }
+        .project-card .timeline-date {
+            margin-bottom: 0.8rem;
+        }
+        .project-desc {
+            font-size: 0.95rem;
+            color: var(--text-main);
+            margin-bottom: 1.2rem;
+            flex-grow: 1;
+        }
+        .project-desc ul {
+            padding-left: 1rem;
+            margin: 0;
+        }
+        
+        /* Pill Tags for Tech Stack */
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .tag {
+            background-color: #eef2f6;
+            color: var(--utp-blue);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        /* Interactive Link Button */
+        .project-btn {
+            background-color: var(--utp-blue);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            text-align: center;
+            display: inline-block;
+            transition: background-color 0.3s ease;
+            align-self: flex-start;
+        }
+        .project-btn:hover {
+            background-color: var(--utp-gold);
+            color: #ffffff;
+        }
+
+        /* Skills layout */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        .skill-category {
+            background: #f9f9f9;
+            padding: 1rem;
+            border-left: 4px solid var(--utp-gold);
+            border-radius: 4px;
+        }
+        .skill-category strong {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--utp-blue);
+        }
+
+        /* Achievements Card Layout */
+        .achievement-card {
+            background: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        .achievement-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--utp-gold);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.08);
+        }
+        .achievement-card h3 {
+            color: var(--utp-blue);
+            font-size: 1.15rem;
+            margin-top: 0;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        .achievement-card h3::before {
+            content: '•';
+            color: var(--utp-gold);
+            font-size: 1.5rem;
+            margin-right: 0.5rem;
+        }
+
+        /* Reference layout with Images */
+        .reference-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        .ref-card {
+            background: #fdfdfd;
+            border: 1px solid #eee;
+            padding: 1.5rem;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .ref-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .ref-photo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--utp-gold);
+            flex-shrink: 0;
+            background-color: #eaeaea; /* Placeholder color */
+        }
+        .ref-info {
+            flex-grow: 1;
+        }
+        .ref-info h4 {
+            margin: 0 0 0.3rem 0;
+            color: var(--utp-blue);
+            font-size: 1.1rem;
+        }
+
+        /* Responsive design */
+        @media (max-width: 600px) {
+            nav a {
+                padding: 0.8rem 0.5rem;
+                font-size: 0.75rem;
+            }
+            .cert-slide {
+                flex: 0 0 90%;
+            }
+            .profile-photo {
+                width: 120px;
+                height: 120px;
+            }
+            .ref-card {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header id="home">
+        <div class="header-content">
+            <img src="profile.jpg" alt="Muhammad Firman Hakim" class="profile-photo">
+            
+            <div class="header-text">
+                <h1>MUHAMMAD FIRMAN HAKIM BIN CHE RAMLEE</h1>
+                <p>Universiti Teknologi PETRONAS, 32610, Seri Iskandar, Perak</p>
+                <p>+60139331390 | MUHAMMAD_22012176@utp.edu.my | <a href="https://www.linkedin.com/in/firman-hakim-che-ramlee-32a5a5282/" target="_blank">LinkedIn Profile</a><span style="display:none"></span></p>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <a href="#about">Objective</a>
+        <a href="#education">Education</a>
+        <a href="#working">Working</a>
+        <a href="#leadership">Leadership</a>
+        <a href="#projects">Projects</a>
+        <a href="#volunteer">Volunteer</a>
+        <a href="#skills">Skills</a>
+        <a href="#achievements">Achievements</a>
+        <a href="#references">References</a>
+    </nav>
+
+    <div class="container">
+        
+        <div id="about" class="section">
+            <h2>Career Objective</h2>
+            <p>I am a motivated Information Technology student with strong basic skills in data analysis, website building, and system structure. I am looking for an internship placement from 7 September 2026 to 9 April 2027. My goal is to apply my technical and project management skills to provide high-quality data solutions in a professional company.<span style="display:none"></span></p>
+        </div>
+
+        <div id="education" class="section">
+            <h2>Education</h2>
+            <div class="timeline">
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">Current</div>
+                    <h3>Bachelor in Information Technology (Hons)</h3>
+                    <p class="subtitle">Universiti Teknologi PETRONAS, Seri Iskandar, Perak<span style="display:none"></span></p>
+                    <ul>
+                        <li>Current CGPA: 3.82<span style="display:none"></span></li>
+                        <li>Awarded Dean's List for all 5 semesters<span style="display:none"></span></li>
+                    </ul>
+                    
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">Completed</div>
+                    <h3>Foundation of Technology in Information Technology</h3>
+                    <p class="subtitle">Universiti Teknologi PETRONAS, Seri Iskandar, Perak<span style="display:none"></span></p>
+                    <ul>
+                        <li>CGPA: 3.92<span style="display:none"></span></li>
+                        <li>Awarded Dean's List for all 3 semesters<span style="display:none"></span></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="working" class="section">
+            <h2>Working Experience</h2>
+            <div class="timeline">
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">Jan 2025 - Present</div>
+                    <h3>Library Assistant (Part-Time)</h3>
+                    <p class="subtitle">Information Resource Centre (IRC), Universiti Teknologi PETRONAS – Seri Iskandar, Perak<span style="display:none"></span></p>
+                    <ul>
+                        <li>Managed service counter operations and ensured technical accuracy by performing data entry for new library arrivals into management systems.<span style="display:none"></span></li>
+                        <li>Boosted digital engagement as a TikTok content creator and systematically organized library collections to ensure efficient patron accessibility.<span style="display:none"></span></li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">Jan 2026 - Feb 2026</div>
+                    <h3>Data Mapping Assistant (Part-Time)</h3>
+                    <p class="subtitle">Stakeholder Planning Department, Universiti Teknologi PETRONAS – Seri Iskandar, Perak<span style="display:none"></span></p>
+                    <ul>
+                        <li>Analyzed and visualized a dataset of over 1000+ entries using Microsoft Excel, producing comprehensive visual reports and scatter plots to support executive decision-making and data-informed strategies.<span style="display:none"></span></li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">Jan 2025 - April 2025</div>
+                    <h3>Fundamental Mathematics Tutor (Part-Time)</h3>
+                    <p class="subtitle">Centre for Academic Excellence (CADEX), Universiti Teknologi PETRONAS – Seri Iskandar, Perak</p>
+                    <ul>
+                        <li>Conducted weekly tutoring sessions for 6 foundation students, simplifying complex mathematical concepts for improved understanding.<span style="display:none"></span></li>
+                        <li>Coordinated collaborative problem-solving activities and tracked student progress throughout the semester to ensure academic objectives were effectively met.<span style="display:none"></span></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="leadership" class="section">
+            <h2>Extracurricular Activities & Leadership Experience</h2>
+            <div class="timeline">
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">Sept 2025 - Present</div>
+                    <h3>President</h3>
+                    <p class="subtitle">UTPHost Club<span style="display:none"></span></p>
+                    <ul>
+                        <li>Directed strategic organizational growth by scaling the active committee from 4 to 60 members, establishing a high-performing operational infrastructure that successfully delivered 10 large-scale events per semester.<span style="display:none"></span></li>
+                    </ul>
+                    <div class="certificate-slider">
+                        <div class="cert-slide"><img src="president1.jpeg" alt="Activity Image 1"></div>
+                        <div class="cert-slide"><img src="president2.jpeg" alt="Activity Image 2"></div>
+                        <div class="cert-slide"><img src="president3.jpeg" alt="Activity Image 3"></div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">Oct 2025 - Nov 2025</div>
+                    <h3>Project Director</h3>
+                    <p class="subtitle">UTPHost New-Bond Event | UTPHost Club<span style="display:none"></span></p>
+                    <ul>
+                        <li>Executed a targeted talent acquisition strategy that successfully secured 20 new active members, fostering a collaborative organizational culture through 4 structured team-building initiatives.<span style="display:none"></span></li>
+                    </ul>
+                    <div class="certificate-slider">
+                        <div class="cert-slide"><img src="UTPHostNewBond2.jpg" alt="Activity Image 1"></div>
+                        <div class="cert-slide"><img src="UTPHostNewBond3.jpg" alt="Activity Image 2"></div>
+                        <div class="cert-slide"><img src="UTPHostNewBond1.jpg" alt="Activity Image 3"></div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">Sept 2025 - Nov 2025</div>
+                    <h3>Project Director</h3>
+                    <p class="subtitle">Permainan Kita Event | Google Developer Student Club (GDSC-UTP)<span style="display:none"></span></p>
+                    <ul>
+                        <li>Led a 15-member committee to manage a cultural exchange initiative, successfully facilitating cross-cultural networking and stakeholder collaboration among 40 diverse local and international students.<span style="display:none"></span></li>
+                    </ul>
+                    <div class="certificate-slider">
+                        <div class="cert-slide"><img src="PermainanKita1.jpeg" alt="Activity Image 1"></div>
+                        <div class="cert-slide"><img src="PermainanKita2.jpeg" alt="Activity Image 2"></div>
+                        <div class="cert-slide"><img src="PermainanKita3.jpeg" alt="Activity Image 3"></div>
+                        <div class="cert-slide"><img src="PermainanKita5.jpeg" alt="Activity Image 5"></div>
+			<div class="cert-slide"><img src="PermainanKita6.jpeg" alt="Activity Image 3"></div>
+                        <div class="cert-slide"><img src="PermainanKita7.jpeg" alt="Activity Image 4"></div>
+                        <div class="cert-slide"><img src="PermainanKita8.jpeg" alt="Activity Image 5"></div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">June 2025 - April 2026</div>
+                    <h3>Assistant Project Director</h3>
+                    <p class="subtitle">D.R.O.N.E 1.0 and 2.0 (Discover, Reach Out, Navigate, Engage) | Google Developer Student Club (GDSC-UTP)<span style="display:none"></span></p>
+                    <ul>
+                        <li>Spearheaded two high-impact regional STEM programs by securing a PPDHP partnership and RM9,000 in funding, leading a 21-person team to execute advanced drone simulations to improve technological literacy for 68 students and 34 teachers.<span style="display:none"></span></li>
+                    </ul>
+                    <div class="certificate-slider">
+                        <div class="cert-slide"><img src="DRONE1.jpeg" alt="Activity Image 1"></div>
+                        <div class="cert-slide"><img src="DRONE2.jpeg" alt="Activity Image 2"></div>
+                        <div class="cert-slide"><img src="DRONE3.jpeg" alt="Activity Image 3"></div>
+                        <div class="cert-slide"><img src="DRONE4.jpeg" alt="Activity Image 4"></div>
+                        <div class="cert-slide"><img src="DRONE5.jpeg" alt="Activity Image 5"></div>
+			<div class="cert-slide"><img src="DRONE6.jpeg" alt="Activity Image 1"></div>
+                        <div class="cert-slide"><img src="DRONE7.jpeg" alt="Activity Image 2"></div>
+                        <div class="cert-slide"><img src="DRONE8.jpeg" alt="Activity Image 3"></div>
+                        <div class="cert-slide"><img src="DRONE9.jpeg" alt="Activity Image 4"></div>
+                        <div class="cert-slide"><img src="DRONE10.jpeg" alt="Activity Image 5"></div>
+
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">Nov 2025 - Feb 2026</div>
+                    <h3>Assistant Project Director</h3>
+                    <p class="subtitle">Inter-University and Industry Knowledge Exchange Programme | UTPHost Club<span style="display:none"></span></p>
+                    <ul>
+                        <li>Secured RM5,000 in strategic funding and mobilized a 20-person committee to manage complex operational and logistical planning for a 3-day industrial benchmarking expedition at Institut Teknologi Petroleum PETRONAS (INSTEP) and Universiti Malaysia Terengganu (UMT).<span style="display:none"></span></li>
+                    </ul>
+                    <div class="certificate-slider">
+                        <div class="cert-slide"><img src="instep1.jpeg" alt="Activity Image 1"></div>
+                        <div class="cert-slide"><img src="instep2.jpeg" alt="Activity Image 2"></div>
+                        <div class="cert-slide"><img src="instep3.jpeg" alt="Activity Image 3"></div>
+                        <div class="cert-slide"><img src="instep4.jpeg" alt="Activity Image 4"></div>
+                        <div class="cert-slide"><img src="instep5.jpeg" alt="Activity Image 5"></div>
+                        <div class="cert-slide"><img src="instep6.jpeg" alt="Activity Image 5"></div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">August 2025 - October 2025</div>
+                    <h3>Head of Logistics and Food & Beverages</h3>
+                    <p class="subtitle">EcoMarine Quest: Turtle Conservation and Beach Clean-Up | Google Developer Student Club (GDSC-UTP) | Segari Turtle Sanctuary, Perak</p>
+                    <div class="certificate-slider">
+                        <div class="cert-slide"><img src="penyu1.jpeg" alt="Activity Image 1"></div>
+                        <div class="cert-slide"><img src="photo_2026-06-04_19-30-03.jpg" alt="Activity Image 2"></div>
+                        <div class="cert-slide"><img src="penyu2.jpeg" alt="Activity Image 2"></div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">Sept 2023 - Oct 2023</div>
+                    <h3>Head of Food & Beverages</h3>
+                    <p class="subtitle">Down To Earth: Caring For Environment | Maahad Tahfiz Al-Quran Wal Qiraat Addin 12, Perak</p>
+                    <div class="certificate-slider">
+                        <div class="cert-slide"><img src="dte1.jpg" alt="Activity Image 1"></div>
+                        <div class="cert-slide"><img src="dte2.jpg" alt="Activity Image 2"></div>
+                        <div class="cert-slide"><img src="dte3.jpg" alt="Activity Image 3"></div>
+                        <div class="cert-slide"><img src="dte4.jpg" alt="Activity Image 4"></div>
+                        <div class="cert-slide"><img src="dte5.jpg" alt="Activity Image 5"></div>
+                        <div class="cert-slide"><img src="dte6.jpg" alt="Activity Image 3"></div>
+                        <div class="cert-slide"><img src="dte7.jpg" alt="Activity Image 4"></div>
+                        <div class="cert-slide"><img src="dte8.jpg" alt="Activity Image 5"></div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">May 2025 - August 2025</div>
+                    <h3>Committee Member of Ceremony & Protocol</h3>
+                    <p class="subtitle">CommunityX: Innovative Collaboration for Community Empowerment | Institut Teknologi Sepuluh Nopember (ITS), Surabaya & Pondok Pesantren Darussalam, Banyuwangi, Indonesia</p>
+                    <div class="certificate-slider">
+                        <div class="cert-slide"><img src="indo1.jpeg" alt="Activity Image 1"></div>
+                        <div class="cert-slide"><img src="indo2.jpeg" alt="Activity Image 2"></div>
+                        <div class="cert-slide"><img src="indo3.jpeg" alt="Activity Image 3"></div>
+                        <div class="cert-slide"><img src="indo4.jpeg" alt="Activity Image 4"></div>
+                        <div class="cert-slide"><img src="indo5.jpeg" alt="Activity Image 5"></div>
+                        <div class="cert-slide"><img src="indo6.jpeg" alt="Activity Image 3"></div>
+                        <div class="cert-slide"><img src="indo7.jpeg" alt="Activity Image 4"></div>
+                        <div class="cert-slide"><img src="indo8.jpeg" alt="Activity Image 5"></div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">June 2024 - Jan 2025</div>
+                    <h3>Committee Member of Campaign & Promotion</h3>
+                    <p class="subtitle">RECONSA 2025: The 9th Regional Conference on Student Activism</p>
+                    <div class="certificate-slider">
+                        <div class="cert-slide"><img src="reconsa1.jpeg" alt="Activity Image 1"></div>
+                        <div class="cert-slide"><img src="reconsa2.jpeg" alt="Activity Image 2"></div>
+                        <div class="cert-slide"><img src="reconsa3.jpeg" alt="Activity Image 3"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="projects" class="section">
+            <h2>Academic Projects</h2>
+            
+            <div class="project-grid">
+                
+                <div class="project-card">
+                    <div class="project-img-placeholder">
+                        <img src="kNN.png" alt="JB Bank Prediction Model" style="width:100%; height:100%; object-fit:cover; border-radius:8px;">
+                    </div>
+                    
+                    <h3>JB Bank Customer Behavior Prediction Model</h3>
+                    <div class="timeline-date">2026<span style="display:none"></span></div>
+                    
+                    <div class="project-tags">
+                        <span class="tag">R Language</span>
+                        <span class="tag">k-NN</span>
+                        <span class="tag">Decision Trees</span>
+                    </div>
+
+                    <div class="project-desc">
+                        <ul>
+                            <li>Built a data prediction model to understand the financial actions of 5,000 bank customers.<span style="display:none"></span></li>
+                            <li>Used basic R programming and k-Nearest Neighbors (k-NN) classification methods to create useful commercial marketing plans.<span style="display:none"></span></li>
+                        </ul>
+                    </div>
+
+                    <a href="https://github.com/Firman05-Hakim/JB-Bank-Project" target="_blank" class="project-btn">GitHub</a>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-img-placeholder">
+                        <img src="SkyGuardPerak.png" alt="Aviation Tracking System" style="width:100%; height:100%; object-fit:cover; border-radius:8px;">
+                    </div>
+                    
+                    <h3>SkyGuard Perak Aviation Tracking System</h3>
+                    <div class="timeline-date">2026<span style="display:none"></span></div>
+                    
+                    <div class="project-tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">IoT</span>
+                        <span class="tag">OpenSky API</span>
+                    </div>
+
+                    <div class="project-desc">
+                        <ul>
+                            <li>Created a stable software program using Python to monitor live airplane flights for 72 hours continuously.<span style="display:none"></span></li>
+                            <li>Built an interactive digital map dashboard to easily view airplanes flying at low altitudes.<span style="display:none"></span></li>
+                        </ul>
+                    </div>
+
+                    <a href="https://skyguard-perak-iot-bwnzgbqp39rcxxfxrijyga.streamlit.app" target="_blank" class="project-btn">View Project</a>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-img-placeholder">
+                        <img src="Waste2Worth.png" alt="Waste2Worth Platform" style="width:100%; height:100%; object-fit:cover; border-radius:8px;">
+                    </div>
+                    
+                    <h3>Waste2Worth Incentive-Based Recycling Platform</h3>
+                    <div class="timeline-date">2025<span style="display:none"></span></div>
+                    
+                    <div class="project-tags">
+                        <span class="tag">HTML/CSS</span>
+                        <span class="tag">PHP</span>
+                        <span class="tag">MySQL</span>
+                    </div>
+
+                    <div class="project-desc">
+                        <ul>
+                            <li>Developed a complete and secure website for environmental reporting using standard web languages and safe user logins.<span style="display:none"></span></li>
+                            <li>Added a simple point-reward system to encourage the community to practice good recycling habits.<span style="display:none"></span></li>
+                        </ul>
+                    </div>
+
+                    <a href="http://waste2worth.atwebpages.com/Login_page.html" target="_blank" class="project-btn">View Project</a>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-img-placeholder">
+                        <img src="DCN.png" alt="Network Architecture" style="width:100%; height:100%; object-fit:cover; border-radius:8px;">
+                    </div>
+                    
+                    <h3>Multi-Branch Enterprise Network Architecture</h3>
+                    <div class="timeline-date">2025<span style="display:none"></span></div>
+                    
+                    <div class="project-tags">
+                        <span class="tag">Cisco Packet Tracer</span>
+                        <span class="tag">Huawei eNSP</span>
+                        <span class="tag">Wireshark</span>
+                    </div>
+
+                    <div class="project-desc">
+                        <ul>
+                            <li>Designed a safe computer network using basic OSPF routing for a business with many office branches.<span style="display:none"></span></li>
+                            <li>Tested the network using Wireshark to find security problems and protect the system.<span style="display:none"></span></li>
+                        </ul>
+                    </div>
+
+                    <a href="https://github.com/Firman05-Hakim/Multi-Branch-Enterprise-Network-Architecture" target="_blank" class="project-btn">GitHub</a>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-img-placeholder">
+                        <img src="sigma.png" alt="Sigma Clinic System" style="width:100%; height:100%; object-fit:cover; border-radius:8px;">
+                    </div>
+                    
+                    <h3>Sigma Clinic Healthcare Management System</h3>
+                    
+                    <div class="project-tags">
+                        <span class="tag">C#</span>
+                        <span class="tag">OOP</span>
+                        <span class="tag">Microsoft Access</span>
+                    </div>
+
+                    <div class="project-desc">
+                        <ul>
+                            <li>A comprehensive desktop application for clinic appointment scheduling and secure health record management.</li>
+                            <li>Applied Object-Oriented Programming (OOP) principles in C# and integrated a Microsoft Access backend database.</li>
+                            <li>Engineered an interactive dashboard featuring a gamified point-reward system to incentivize patient retention.</li>
+                        </ul>
+                    </div>
+
+                    <a href="https://github.com/Firman05-Hakim/Sigma-Clinic-Management-System" target="_blank" class="project-btn">Github</a>
+                </div>
+
+                
+
+                <div class="project-card">
+                    <div class="project-img-placeholder">
+                        <img src="mudah.png" alt="MUDAH.NYEE Platform" style="width:100%; height:100%; object-fit:cover; border-radius:8px;">
+                    </div>
+                    
+                    <h3>MUDAH.NYEE E-Commerce Platform Redesign</h3>
+                    
+                    <div class="project-tags">
+                        <span class="tag">UI/UX</span>
+                        <span class="tag">Figma</span>
+                        <span class="tag">HCI</span>
+                    </div>
+
+                    <div class="project-desc">
+                        <ul>
+                            <li>A UI/UX redesign of an online marketplace to resolve cluttered interfaces and poor navigation.</li>
+                            <li>Developed a high-fidelity interactive prototype in Figma applying Human-Computer Interaction (HCI) principles.</li>
+                            <li>Conducted usability testing, achieving an 80% satisfaction score and a 91% success rate in rapid feature discoverability.</li>
+                        </ul>
+                    </div>
+
+                    <a href="https://make-jeep-60457789.figma.site/" target="_blank" class="project-btn">View Prototype</a>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="volunteer" class="section">
+            <h2>Volunteer Experience</h2>
+            <div class="timeline">
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">Mar 2026</div>
+                    <h3>Supervisor</h3>
+                    <p class="subtitle">Iftar Kasih UTPHost at Rumah Anak Yatim Tasawwur Islam Perak<span style="display:none"></span></p>
+                    <div class="certificate-slider">
+                        <div class="cert-slide"><img src="iftarkasih1.jpeg" alt="Activity Image 1"></div>
+                        <div class="cert-slide"><img src="iftarkasih2.jpeg" alt="Activity Image 2"></div>
+                        <div class="cert-slide"><img src="iftarkasih3.jpeg" alt="Activity Image 3"></div>
+                        <div class="cert-slide"><img src="iftarkasih4.jpeg" alt="Activity Image 4"></div>
+                        <div class="cert-slide"><img src="iftarkasih5.jpeg" alt="Activity Image 5"></div>
+                        <div class="cert-slide"><img src="iftarkasih6.jpeg" alt="Activity Image 4"></div>
+                        <div class="cert-slide"><img src="iftarkasih7.jpeg" alt="Activity Image 5"></div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">Feb 2026</div>
+                    <h3>Volunteer</h3>
+                    <p class="subtitle">CSR Program Bubur Lambuk Ramadhan<span style="display:none"></span></p>
+                    <div class="certificate-slider">
+                        <div class="cert-slide"><img src="lambuk1.jpeg" alt="Activity Image 1"></div>
+                        <div class="cert-slide"><img src="lambuk2.jpeg" alt="Activity Image 2"></div>
+                        <div class="cert-slide"><img src="lambuk3.jpeg" alt="Activity Image 3"></div>
+                        <div class="cert-slide"><img src="lambuk4.jpeg" alt="Activity Image 4"></div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">Oct 2025</div>
+                    <h3>Volunteer</h3>
+                    <p class="subtitle">Program Keindahan dan Kesejahteraan Pekan Manjung<span style="display:none"></span></p>
+                    <div class="certificate-slider">
+                        <div class="cert-slide"><img src="manjung1.jpeg" alt="Activity Image 1"></div>
+                        <div class="cert-slide"><img src="manjung2.jpeg" alt="Activity Image 2"></div>
+                        <div class="cert-slide"><img src="manjung3.jpeg" alt="Activity Image 3"></div>
+                        <div class="cert-slide"><img src="manjung4.jpeg" alt="Activity Image 4"></div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">Oct 2025 & Oct 2024</div>
+                    <h3>Ceremony Usher</h3>
+                    <p class="subtitle">Universiti Teknologi PETRONAS 25th & 24th Convocation Ceremonies<span style="display:none"></span></p>
+                    <div class="certificate-slider">
+                        <div class="cert-slide"><img src="convo1.jpeg" alt="Activity Image 1"></div>
+                        <div class="cert-slide"><img src="convo2.jpeg" alt="Activity Image 2"></div>
+                        <div class="cert-slide"><img src="convo3.jpeg" alt="Activity Image 3"></div>
+                        <div class="cert-slide"><img src="convo4.jpeg" alt="Activity Image 4"></div>
+                        <div class="cert-slide"><img src="convo5.jpeg" alt="Activity Image 5"></div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">Sept 2025</div>
+                    <h3>VIP Usher</h3>
+                    <p class="subtitle">UTP Career Fair: Technology, Education and Career (TEC) 2025<span style="display:none"></span></p>
+                    <div class="certificate-slider">
+                        <div class="cert-slide"><img src="tec1.jpeg" alt="Activity Image 1"></div>
+                        <div class="cert-slide"><img src="tec2.jpeg" alt="Activity Image 2"></div>
+                        <div class="cert-slide"><img src="tec3.jpeg" alt="Activity Image 3"></div>
+                        <div class="cert-slide"><img src="tec4.jpeg" alt="Activity Image 4"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="skills" class="section">
+            <h2>Professional Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <strong>Programming & Web Design</strong>
+                    Python, C++, C#, R, PHP, JavaScript, Visual Basic, HTML, CSS, Figma (Intermediate)<span style="display:none"></span>
+                </div>
+                <div class="skill-category">
+                    <strong>Databases & Analytics</strong>
+                    MySQL, phpMyAdmin, Microsoft Excel (Intermediate)<span style="display:none"></span>
+                </div>
+                <div class="skill-category">
+                    <strong>Networking & Security</strong>
+                    Cisco Packet Tracer, Huawei eNSP, Wireshark (Intermediate)<span style="display:none"></span>
+                </div>
+            </div>
+        </div>
+        
+        <div id="achievements" class="section">
+            <h2>Key Achievements (2025)</h2>
+            
+            <div class="achievement-card">
+                <h3>First Runner Up of Microsoft ASEAN AI for Accessibility (AI4A) Hackathon<span style="display:none"></span></h3>
+                <div class="certificate-slider">
+                    <div class="cert-slide"><img src="BIMTalk1.jpeg" alt="Hackathon Image 1"></div>
+                    <div class="cert-slide"><img src="BIMTalk2.jpeg" alt="Hackathon Image 2"></div>
+                    <div class="cert-slide"><img src="BIMTalk3.jpeg" alt="Hackathon Image 3"></div>
+                    <div class="cert-slide"><img src="BIMTalk4.jpeg" alt="Hackathon Image 4"></div>
+                    <div class="cert-slide"><img src="BIMTalk5.jpeg" alt="Hackathon Image 5"></div>
+		    <div class="cert-slide"><img src="BIMTalk6.jpeg" alt="Hackathon Image 1"></div>
+                    <div class="cert-slide"><img src="BIMTalk7.jpeg" alt="Hackathon Image 2"></div>
+               </div>
+            </div>
+
+            <div class="achievement-card">
+                <h3>Amazon Web Services (AWS) Academy Graduate: Cloud Foundations Training Badge<span style="display:none"></span></h3>
+                <div class="certificate-slider">
+                    <div class="cert-slide"><img src="AWS1.png" alt="AWS Image 1"></div>
+                    <div class="cert-slide"><img src="AWS2.png" alt="AWS Image 2"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="references" class="section">
+            <h2>References</h2>
+            <div class="reference-grid">
+                <div class="ref-card">
+                    <div class="ref-info">
+                        <h4>Ts. Saipunidzam bin Mahamad<span style="display:none"></span></h4>
+                        <p class="subtitle" style="margin-bottom:0;">Senior Lecturer, Department of Computing<span style="display:none"></span></p>
+                        <p style="margin-top: 0.2rem; font-size: 0.9rem;">
+                            Faculty of Science, Management & Computing, UTP.<span style="display:none"></span><br>
+                            Phone: +605-3687408<span style="display:none"></span><br>
+                            Email: saipunidzam_mahamad@utp.edu.my<span style="display:none"></span>
+                        </p>
+                    </div>
+                </div>
+                <div class="ref-card">
+                    <div class="ref-info">
+                        <h4>Shariza Mohamed Shuhidan<span style="display:none"></span></h4>
+                        <p class="subtitle" style="margin-bottom:0;">Manager, Stakeholder Planning & Advisor, UTPHost Club<span style="display:none"></span></p>
+                        <p style="margin-top: 0.2rem; font-size: 0.9rem;">
+                            Strategic Communication, UTP.<span style="display:none"></span><br>
+                            Phone: +6053688242<span style="display:none"></span><br>
+                            Email: sharizs@utp.edu.my<span style="display:none"></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
+
+```
